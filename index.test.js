@@ -1,23 +1,33 @@
-const wait = require('./wait');
-const process = require('process');
-const cp = require('child_process');
-const path = require('path');
+const issueContext = require('./issue_comment_payload.json');
+const { getReminder } = require('./utilities');
 
-test('throws invalid number', async () => {
-  await expect(wait('foo')).rejects.toThrow('milliseconds not a number');
+describe('getReminder', () => {
+  test('can parse context', () => {
+    const REFERENCE_DATE = new Date(2017, 6, 5, 4, 3, 2, 0);
+    const reminder = getReminder(issueContext, REFERENCE_DATE);
+
+    expect(reminder).toEqual({
+      who: 'Codertocat', when: new Date(2017, 6, 6, 9, 0, 0, 0), what: 'do something'
+    });
+  });
+  test('returns null if not a slash command', () => {
+    const reminder = getReminder({
+      ...issueContext,
+      comment: {
+        body: 'not a command'
+      }
+    });
+
+    expect(reminder).toBeNull();
+  })
+  test('returns null if the command is not remind', () => {
+    const reminder = getReminder({
+      ...issueContext,
+      comment: {
+        body: '/not a command'
+      }
+    });
+
+    expect(reminder).toBeNull();
+  });
 });
-
-test('wait 500 ms', async () => {
-  const start = new Date();
-  await wait(500);
-  const end = new Date();
-  var delta = Math.abs(end - start);
-  expect(delta).toBeGreaterThanOrEqual(500);
-});
-
-// shows how the runner will run a javascript action with env / stdout protocol
-test('test runs', () => {
-  process.env['INPUT_MILLISECONDS'] = 500;
-  const ip = path.join(__dirname, 'index.js');
-  console.log(cp.execSync(`node ${ip}`, {env: process.env}).toString());
-})

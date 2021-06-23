@@ -1,21 +1,42 @@
 const core = require('@actions/core');
-const wait = require('./wait');
+const github = require('@actions/github');
+const {getReminder, addLabel} = require('./utilities');
 
-
-// most @actions toolkit packages have async methods
 async function run() {
+  const context = github.context;
+  const octokit = github.getOctokit(core.getInput('token'));
+  let reminder;
+
   try {
-    const ms = core.getInput('milliseconds');
-    core.info(`Waiting ${ms} milliseconds ...`);
+    reminder = getReminder(context);
 
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    await wait(parseInt(ms));
-    core.info((new Date()).toTimeString());
+    if (!reminder) {
+      return;
+    }
 
-    core.setOutput('time', new Date().toTimeString());
   } catch (error) {
-    core.setFailed(error.message);
+    await octokit.github.issues.createComment(context.issue({
+      body: `@${context.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``
+    }));
+    core.setFailed(error);
+
+    return;
   }
+
+  const newLabels = addLabel(context.issue.labels);
+  if (newLabels.length != context.issue.labels.length) {
+    await octokit.issues.update({
+      ...context.issue,
+      newLabels
+    });
+  }
+
+  // TODO: store reminder data somewhere
+  // await metadata(context).set(reminder)
+
+  await octokit.issues.createComment(context.issue({
+    body: `@${context.sender.login} set a reminder for **${reminder.when.toLocaleDateString()}**`
+  }));
 }
 
 run();

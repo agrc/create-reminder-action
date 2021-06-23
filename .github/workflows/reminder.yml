@@ -1,0 +1,11 @@
+name: 'reminder'
+on:
+  issue_comment:
+
+jobs:
+  reminder:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: agrc/reminder-action@main
+      with:
+        token: '${{ secrets.GITHUB_TOKEN }}'
