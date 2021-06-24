@@ -25,8 +25,10 @@ function updateIssue(octokit, context, reminder) {
 
 async function run() {
   const context = github.context;
-  console.log(github.context);
-  const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+  core.debug(github.context);
+  core.debug(process.env.GITHUB_TOKEN);
+  core.debug(core.getInput('repoToken', {required: true}));
+  const octokit = github.getOctokit(core.getInput('repoToken'));
   let reminder;
 
   try {

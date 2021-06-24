@@ -1,10 +1,9 @@
 name: 'Set Reminder'
 description: 'Set a reminder when a comment is posted in an issue'
 inputs:
-  repo-token:
+  repoToken:
     description: 'github token'
     required: true
-    default: 'GITHUB_TOKEN'
 runs:
   using: 'node12'
   main: 'dist/index.js'
