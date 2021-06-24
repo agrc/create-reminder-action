@@ -15357,12 +15357,13 @@ async function run() {
   const context = github.context.payload;
   const owner = core.getInput('repositoryOwner');
   const repository = core.getInput('repository');
+  const octokit = github.getOctokit(core.getInput('repoToken', {required:true}));
+  let reminder;
+
   context.repository = {
     owner,
     name: repository.split('/')[1]
   };
-  const octokit = github.getOctokit(core.getInput('repoToken', {required:true}));
-  let reminder;
 
   try {
     core.startGroup('parsing reminder');
@@ -15371,6 +15372,7 @@ async function run() {
     core.info(JSON.stringify(reminder, null, 1));
 
     if (!reminder) {
+      core.info('no reminder found');
       return;
     }
     core.endGroup();
@@ -15389,7 +15391,7 @@ async function run() {
   core.info(JSON.stringify(getIssueProps(context), null, 1));
   await octokit.rest.issues.addLabels({
     ...getIssueProps(context),
-    labels: LABEL
+    labels: [LABEL]
   });
   core.endGroup();
 
