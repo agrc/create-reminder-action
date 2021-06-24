@@ -10,7 +10,3 @@ jobs:
     steps:
     - name: check for reminder
       uses: agrc/reminder-action@main
-      with:
-        repoToken: ${{ secrets.GITHUB_TOKEN }}
-        repository: ${{ github.repository }}
-        repositoryOwner: ${{ github.repository_owner }}
