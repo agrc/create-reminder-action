@@ -15329,11 +15329,17 @@ const github = __nccwpck_require__(438);
 const {getReminder, addReminderToBody} = __nccwpck_require__(992);
 const LABEL = 'reminder';
 
-function createComment(octokit, context, body) {
-  return octokit.rest.issues.createComment({
+function getIssueProps(context) {
+  return {
     owner: context.repository.owner,
     repo: context.repository.name,
-    issue_number: context.issue.number,
+    issue_number: context.issue.number
+  };
+}
+
+function createComment(octokit, context, body) {
+  return octokit.rest.issues.createComment({
+    ...getIssueProps(context),
     body
   });
 }
@@ -15342,9 +15348,7 @@ function updateIssue(octokit, context, reminder) {
   const body = addReminderToBody(context.issue.body, reminder);
 
   return octokit.rest.issues.update({
-    owner: context.repository.owner,
-    repo: context.repository.name,
-    issue_number: context.issue.number,
+    ...getIssueProps(context),
     body
   });
 }
@@ -15383,9 +15387,7 @@ async function run() {
 
   core.startGroup('add label');
   await octokit.rest.issues.addLabels({
-    owner: context.repository.owner.id,
-    repo: context.repository.name,
-    issue_number: context.issue.number,
+    ...getIssueProps(context),
     labels: LABEL
   });
   core.endGroup();
