@@ -15356,12 +15356,10 @@ function updateIssue(octokit, context, reminder) {
 async function run() {
   const context = github.context.payload;
   const owner = core.getInput('repositoryOwner');
-  core.info(`owner: ${owner}`);
   const repository = core.getInput('repository');
-  core.info(`repository: ${repository}`);
   context.repository = {
     owner,
-    name: repository
+    name: repository.split('/')[1]
   };
   const octokit = github.getOctokit(core.getInput('repoToken', {required:true}));
   let reminder;
