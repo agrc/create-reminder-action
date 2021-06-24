@@ -8,4 +8,4 @@ jobs:
     steps:
     - uses: agrc/reminder-action@dev
       with:
-        token: secrets.GITHUB_TOKEN
+        token: ${{ secrets.GITHUB_TOKEN }}
