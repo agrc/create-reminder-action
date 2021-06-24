@@ -5,9 +5,9 @@ const LABEL = 'reminder';
 
 function createComment(octokit, context, body) {
   return octokit.rest.issues.createComment({
-    owner: context.repository.owner.id,
-    repo: context.repository.name,
-    issue_number: context.issue.number,
+    owner: context.payload.repository.owner.id,
+    repo: context.payload.repository.name,
+    issue_number: context.payload.issue.number,
     body
   });
 }
@@ -24,7 +24,7 @@ function updateIssue(octokit, context, reminder) {
 }
 
 async function run() {
-  const context = github.context;
+  const context = github.context.payload;
   const octokit = github.getOctokit(core.getInput('repoToken', {required:true}));
   let reminder;
 
@@ -36,7 +36,7 @@ async function run() {
     }
 
   } catch (error) {
-    await createComment(octokit, context, `@${context.payload.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``);
+    await createComment(octokit, context, `@${context.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``);
     core.setFailed(error);
 
     return;
