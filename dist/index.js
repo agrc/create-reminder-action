@@ -15113,6 +15113,66 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 992:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const parseReminder = __nccwpck_require__(952);
+
+///{ who: 'me',
+//   what: 'call the doctor',
+//   when: 2017-09-12T12:00:00.000Z }
+function getReminder(context, referenceDate = null) {
+  const body = context.comment.body;
+  if (!body.startsWith('/')) {
+    return null;
+  }
+
+  const firstWord = body.slice(1, body.indexOf(' '));
+  if (firstWord !== 'remind') {
+    return null;
+  }
+
+  const reminder = parseReminder(body.slice(1), referenceDate);
+
+  if (!reminder) {
+    throw new Error(`Unable to parse reminder: remind ${body}`);
+  }
+
+  if (reminder.who === 'me') {
+    reminder.who = context.sender.login;
+  }
+
+  return reminder;
+}
+
+function addReminderToBody(body, reminder) {
+  const regex = /\n<!-- bot: (?<reminder>{"reminders":.*) -->/;
+  const match = body.match(regex);
+
+  const reminders = match ? JSON.parse(match.groups.reminder).reminders : [];
+  let id = 1;
+  if (reminders.length > 0) {
+    id = reminders[reminders.length - 1].id + 1;
+  }
+
+  reminders.push({
+    id,
+    ...reminder
+  });
+
+  const comment = `\n<!-- bot: ${JSON.stringify({reminders})} -->`
+  if (match) {
+    return body.replace(regex, comment);
+  }
+
+  return `${body}${comment}`;
+}
+
+module.exports = { getReminder, addReminderToBody };
+
+
+/***/ }),
+
 /***/ 877:
 /***/ ((module) => {
 
@@ -15265,41 +15325,59 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const core = __nccwpck_require__(186);
-const parseReminder = __nccwpck_require__(952);
 const github = __nccwpck_require__(438);
-
+const {getReminder, addReminderToBody} = __nccwpck_require__(992);
 const LABEL = 'reminder';
+
+function createComment(octokit, context, body) {
+  return octokit.rest.issues.createComment({
+    owner: context.repository.owner.id,
+    repo: context.repository.name,
+    issue_number: context.issue.number,
+    body
+  });
+}
+
+function updateIssue(octokit, context, reminder) {
+  const body = addReminderToBody(context.issue.body, reminder);
+
+  return octokit.rest.issues.update({
+    owner: context.repository.owner.id,
+    repo: context.repository.name,
+    issue_number: context.issue.number,
+    body
+  });
+}
 
 async function run() {
   const context = github.context;
-  const octokit = github.getOctokit(context.github.token);
+  const octokit = github.getOctokit(core.getInput('token'));
+  let reminder;
 
-  const reminder = parseReminder(context.comment.body);
+  try {
+    reminder = getReminder(context);
 
-  if (reminder) {
-    if (reminder.who === 'me') {
-      reminder.who = context.sender.login;
+    if (!reminder) {
+      return;
     }
 
-    let { labels } = context.issue;
-    // Add reminder label if it doesn't already exist.
-    if (!labels.find(({ name }) => name === LABEL)) {
-      labels.push(LABEL);
-    }
-    await octokit.issues.update(context.issue({ labels }));
+  } catch (error) {
+    await createComment(octokit, context, `@${context.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``);
+    core.setFailed(error);
 
-    // TODO: store reminder data somewhere
-    // await metadata(context).set(reminder)
-
-    await octokit.issues.createComment(context.issue({
-      body: `@${context.sender.login} set a reminder for **${reminder.when.toLocalDateString()}**`
-    }));
-  } else {
-    await context.github.issues.createComment(context.issue({
-      body: `@${context.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``
-    }));
-    core.setFailed(`Unable to parse reminder: remind ${context.comment.body}`);
+    return;
   }
+
+  await octokit.rest.issues.addLabels({
+    owner: context.repository.owner.id,
+    repo: context.repository.name,
+    issue_number: context.issue.number,
+    labels: LABEL
+  });
+
+  updateIssue(octokit, context, reminder);
+
+  await createComment(octokit, context, `@${context.sender.login} set a reminder for **${reminder.when.toLocaleDateString()}**`);
 }
 
 run();
