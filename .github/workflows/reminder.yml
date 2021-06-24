@@ -12,5 +12,5 @@ jobs:
       uses: agrc/reminder-action@main
       with:
         repoToken: ${{ secrets.GITHUB_TOKEN }}
-        repository: ${{ github.context.repository }}
-        repositoryOwner: ${{ github.context.repository_owner }}
+        repository: ${{ github.repository }}
+        repositoryOwner: ${{ github.repository_owner }}
