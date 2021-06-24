@@ -15331,9 +15331,9 @@ const LABEL = 'reminder';
 
 function createComment(octokit, context, body) {
   return octokit.rest.issues.createComment({
-    owner: context.payload.repository.owner.id,
-    repo: context.payload.repository.name,
-    issue_number: context.payload.issue.number,
+    owner: context.repository.owner.id,
+    repo: context.repository.name,
+    issue_number: context.issue.number,
     body
   });
 }
@@ -15377,7 +15377,7 @@ async function run() {
 
   updateIssue(octokit, context, reminder);
 
-  await createComment(octokit, context, `@${context.payload.sender.login} set a reminder for **${reminder.when.toLocaleDateString()}**`);
+  await createComment(octokit, context, `@${context.sender.login} set a reminder for **${reminder.when.toLocaleDateString()}**`);
 }
 
 run();
