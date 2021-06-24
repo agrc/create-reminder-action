@@ -10,4 +10,4 @@ jobs:
 
     steps:
     - name: check for reminder
-      uses: agrc/reminder-action@main
+      uses: agrc/reminder-action@v1.0.0
