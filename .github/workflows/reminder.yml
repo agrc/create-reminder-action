@@ -13,4 +13,4 @@ jobs:
       with:
         repoToken: ${{ secrets.GITHUB_TOKEN }}
         repository: ${{ github.context.repository }}
-        repository_owner: ${{ github.context.repository_owner }}
+        repositoryOwner: ${{ github.context.repository_owner }}

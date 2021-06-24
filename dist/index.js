@@ -15332,7 +15332,7 @@ const LABEL = 'reminder';
 function getIssueProps(context) {
   return {
     owner: context.repository.owner,
-    repo: context.repository.name.split('/')[-1],
+    repo: context.repository.name,
     issue_number: context.issue.number
   };
 }
@@ -15355,8 +15355,10 @@ function updateIssue(octokit, context, reminder) {
 
 async function run() {
   const context = github.context.payload;
-  const owner = core.getInput('repository_owner');
+  const owner = core.getInput('repositoryOwner');
+  core.info(`owner: ${owner}`);
   const repository = core.getInput('repository');
+  core.info(`repository: ${repository}`);
   context.repository = {
     owner,
     name: repository
