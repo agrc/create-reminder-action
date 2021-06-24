@@ -15351,9 +15351,7 @@ function updateIssue(octokit, context, reminder) {
 
 async function run() {
   const context = github.context;
-  core.info(github.context);
-  core.info(core.getInput('repoToken', {required: true}));
-  const octokit = github.getOctokit(core.getInput('repoToken'));
+  const octokit = github.getOctokit(core.getInput('repoToken', {required:true}));
   let reminder;
 
   try {
@@ -15364,6 +15362,8 @@ async function run() {
     }
 
   } catch (error) {
+    core.info(JSON.stringify(context, null, 1));
+
     await createComment(octokit, context, `@${context.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``);
     core.setFailed(error);
 
