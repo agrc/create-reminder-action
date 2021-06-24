@@ -53,3 +53,5 @@ git add dist
 ```
 
 Use the draft a release workflow on GitHub.
+
+[pick a color](https://perchance.org/color-name) + [pet name generator](https://www.namegenerator.co/animals/pet-name-generator) with the first letter matching the first letter of the color
