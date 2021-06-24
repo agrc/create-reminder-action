@@ -1,6 +1,27 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const {getReminder, addLabel} = require('./utilities');
+const {getReminder, addReminderToBody} = require('./utilities');
+const LABEL = 'reminder';
+
+function createComment(octokit, context, body) {
+  return octokit.rest.issues.createComment({
+    owner: context.repository.owner.id,
+    repo: context.repository.name,
+    issue_number: context.issue.number,
+    body
+  });
+}
+
+function updateIssue(octokit, context, reminder) {
+  const body = addReminderToBody(context.issue.body, reminder);
+
+  return octokit.rest.issues.update({
+    owner: context.repository.owner.id,
+    repo: context.repository.name,
+    issue_number: context.issue.number,
+    body
+  });
+}
 
 async function run() {
   const context = github.context;
@@ -15,28 +36,22 @@ async function run() {
     }
 
   } catch (error) {
-    await octokit.github.issues.createComment(context.issue({
-      body: `@${context.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``
-    }));
+    await createComment(octokit, context, `@${context.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``);
     core.setFailed(error);
 
     return;
   }
 
-  const newLabels = addLabel(context.issue.labels);
-  if (newLabels.length != context.issue.labels.length) {
-    await octokit.issues.update({
-      ...context.issue,
-      newLabels
-    });
-  }
+  await octokit.rest.issues.addLabels({
+    owner: context.repository.owner.id,
+    repo: context.repository.name,
+    issue_number: context.issue.number,
+    labels: LABEL
+  });
 
-  // TODO: store reminder data somewhere
-  // await metadata(context).set(reminder)
+  updateIssue(octokit, context, reminder);
 
-  await octokit.issues.createComment(context.issue({
-    body: `@${context.sender.login} set a reminder for **${reminder.when.toLocaleDateString()}**`
-  }));
+  await createComment(octokit, context, `@${context.sender.login} set a reminder for **${reminder.when.toLocaleDateString()}**`);
 }
 
 run();

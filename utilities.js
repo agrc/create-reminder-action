@@ -1,7 +1,5 @@
 const parseReminder = require('parse-reminder');
 
-const LABEL = 'reminder';
-
 ///{ who: 'me',
 //   what: 'call the doctor',
 //   when: 2017-09-12T12:00:00.000Z }
@@ -29,13 +27,27 @@ function getReminder(context, referenceDate = null) {
   return reminder;
 }
 
-function addLabel(labels) {
-  // Add reminder label if it doesn't already exist.
-  if (!labels.find(({ name }) => name === LABEL)) {
-    labels.push(LABEL);
+function addReminderToBody(body, reminder) {
+  const regex = /\n<!-- bot: (?<reminder>{"reminders":.*) -->/;
+  const match = body.match(regex);
+
+  const reminders = match ? JSON.parse(match.groups.reminder).reminders : [];
+  let id = 1;
+  if (reminders.length > 0) {
+    id = reminders[reminders.length - 1].id + 1;
   }
 
-  return labels;
+  reminders.push({
+    id,
+    ...reminder
+  });
+
+  const comment = `\n<!-- bot: ${JSON.stringify({reminders})} -->`
+  if (match) {
+    return body.replace(regex, comment);
+  }
+
+  return `${body}${comment}`;
 }
 
-module.exports = { getReminder, addLabel };
+module.exports = { getReminder, addReminderToBody };

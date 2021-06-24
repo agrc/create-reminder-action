@@ -1,5 +1,5 @@
 const issueContext = require('./issue_comment_payload.json');
-const { getReminder } = require('./utilities');
+const { getReminder, addReminderToBody } = require('./utilities');
 
 describe('getReminder', () => {
   test('can parse context', () => {
@@ -29,5 +29,39 @@ describe('getReminder', () => {
     });
 
     expect(reminder).toBeNull();
+  });
+});
+
+describe('addReminderToBody', () => {
+  test('adds a reminder to an issue body', () => {
+    const reminder = {
+      who: '@hello',
+      what: 'do it',
+      when: '1/2/3'
+    };
+    const body = addReminderToBody('this is the body', reminder);
+
+    const expected = `this is the body
+<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"1/2/3"}]} -->`;
+
+    expect(body).toEqual(expected);
+  });
+  test('adds a reminder to an issue body with an existing reminder list', () => {
+    const reminder = {
+      who: '@someone',
+      what: 'to something',
+      when: '1/1/2021'
+    };
+    const existing = `
+      this is the body
+<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"1/2/3"}]} -->
+    `;
+    const expected = `
+      this is the body
+<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"1/2/3"},{"id":2,"who":"@someone","what":"to something","when":"1/1/2021"}]} -->
+    `;
+    const result = addReminderToBody(existing, reminder);
+
+    expect(result).toEqual(expected);
   });
 });
