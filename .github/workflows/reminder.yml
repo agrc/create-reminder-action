@@ -10,3 +10,5 @@ jobs:
     steps:
     - name: check for reminder
       uses: agrc/reminder-action@main
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN}}
