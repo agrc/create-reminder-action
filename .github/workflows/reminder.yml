@@ -6,6 +6,6 @@ jobs:
   reminder:
     runs-on: ubuntu-latest
     steps:
-    - uses: agrc/reminder-action@main
+    - uses: agrc/reminder-action@dev
       with:
         token: '${{ secrets.GITHUB_TOKEN }}'
