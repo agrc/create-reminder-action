@@ -1,5 +1,12 @@
-name: 'Set Reminder'
+name: 'Create Reminder'
+author: 'UGRC'
 description: 'Set a reminder when a comment is posted in an issue'
+branding:
+  icon: 'calendar'
+  color: 'white'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
 inputs:
   repoToken:
     description: 'github token'
@@ -13,6 +20,4 @@ inputs:
     description: 'the repository owner'
     required: true
     default: '${{ github.repository_owner }}'
-runs:
-  using: 'node12'
-  main: 'dist/index.js'
+
