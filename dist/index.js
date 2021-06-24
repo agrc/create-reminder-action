@@ -15146,7 +15146,7 @@ function getReminder(context, referenceDate = null) {
 }
 
 function addReminderToBody(body, reminder) {
-  const regex = /\n<!-- bot: (?<reminder>{"reminders":.*) -->/;
+  const regex = /\n\n<!-- bot: (?<reminder>{"reminders":.*) -->/;
   const match = body.match(regex);
 
   const reminders = match ? JSON.parse(match.groups.reminder).reminders : [];
@@ -15160,7 +15160,7 @@ function addReminderToBody(body, reminder) {
     ...reminder
   });
 
-  const comment = `\n<!-- bot: ${JSON.stringify({reminders})} -->`
+  const comment = `\n\n<!-- bot: ${JSON.stringify({reminders})} -->`
   if (match) {
     return body.replace(regex, comment);
   }
