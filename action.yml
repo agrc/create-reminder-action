@@ -7,7 +7,7 @@ inputs:
   repository:
     description: 'the repository name'
     required: true
-  repository_owner:
+  repositoryOwner:
     description: 'the repository owner'
     required: true
 runs:
