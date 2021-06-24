@@ -2,10 +2,11 @@ name: 'reminder'
 on:
   issue_comment:
     types: [created, edited]
+
 jobs:
   reminder:
     runs-on: ubuntu-latest
     steps:
-    - uses: agrc/reminder-action@dev
+    - uses: agrc/reminder-action@main
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
