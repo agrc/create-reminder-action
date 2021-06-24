@@ -15351,7 +15351,9 @@ function updateIssue(octokit, context, reminder) {
 
 async function run() {
   const context = github.context;
-  const octokit = github.getOctokit(core.getInput('token'));
+  core.info(github.context);
+  core.info(core.getInput('repoToken', {required: true}));
+  const octokit = github.getOctokit(core.getInput('repoToken'));
   let reminder;
 
   try {
