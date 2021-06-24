@@ -5,8 +5,8 @@ const LABEL = 'reminder';
 
 function createComment(octokit, context, body) {
   return octokit.rest.issues.createComment({
-    owner: context.repository.owner.id,
-    repo: context.repository.name,
+    owner: 'agrc',
+    repo: 'reminder-action',
     issue_number: context.issue.number,
     body
   });
