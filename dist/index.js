@@ -15332,7 +15332,7 @@ const LABEL = 'reminder';
 function getIssueProps(context) {
   return {
     owner: context.repository.owner,
-    repo: context.repository.name,
+    repo: context.repository.name.split('/')[-1],
     issue_number: context.issue.number
   };
 }
