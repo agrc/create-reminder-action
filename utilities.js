@@ -28,7 +28,7 @@ function getReminder(context, referenceDate = null) {
 }
 
 function addReminderToBody(body, reminder) {
-  const regex = /\n\n<!-- bot: (?<reminder>{"reminders":.*) -->/;
+  const regex = /\r?\n\r?\n<!-- bot: (?<reminder>{"reminders":.*) -->/;
   const match = body.match(regex);
 
   const reminders = match ? JSON.parse(match.groups.reminder).reminders : [];
