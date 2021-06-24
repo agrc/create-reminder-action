@@ -60,6 +60,7 @@ async function run() {
   }
 
   core.startGroup('add label');
+  core.info(JSON.stringify(getIssueProps(context), null, 1));
   await octokit.rest.issues.addLabels({
     ...getIssueProps(context),
     labels: LABEL
