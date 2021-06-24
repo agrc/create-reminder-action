@@ -1,4 +1,5 @@
-name: 'reminder'
+name: 'create reminder'
+
 on:
   issue_comment:
     types: [created, edited]
