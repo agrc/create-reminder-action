@@ -6,7 +6,7 @@ on:
 jobs:
   reminder:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: agrc/reminder-action@main
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: check for reminder
+      uses: agrc/reminder-action@main
