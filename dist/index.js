@@ -15362,9 +15362,7 @@ async function run() {
     }
 
   } catch (error) {
-    core.info(JSON.stringify(context, null, 1));
-
-    await createComment(octokit, context, `@${context.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``);
+    await createComment(octokit, context, `@${context.payload.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``);
     core.setFailed(error);
 
     return;
@@ -15379,7 +15377,7 @@ async function run() {
 
   updateIssue(octokit, context, reminder);
 
-  await createComment(octokit, context, `@${context.sender.login} set a reminder for **${reminder.when.toLocaleDateString()}**`);
+  await createComment(octokit, context, `@${context.payload.sender.login} set a reminder for **${reminder.when.toLocaleDateString()}**`);
 }
 
 run();
