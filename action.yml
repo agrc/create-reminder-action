@@ -4,6 +4,12 @@ inputs:
   repoToken:
     description: 'github token'
     required: true
+  repository:
+    description: 'the repository name'
+    required: true
+  repository_owner:
+    description: 'the repository owner'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
