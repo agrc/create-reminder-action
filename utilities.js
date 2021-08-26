@@ -5,12 +5,12 @@ const parseReminder = require('parse-reminder');
 //   when: 2017-09-12T12:00:00.000Z }
 function getReminder(context, referenceDate = null) {
   const body = context.comment.body;
-  var remindLine = null;
-  var inCode = false;
+  let remindLine = null;
+  let inCode = false;
 
   const lines = body.split('\n');
   for (let i=0; i<lines.length; i++) {
-    var line = lines[i].trim('\r');
+    const line = lines[i].trim('\r');
 
     // handle code blocks
     if (line.startsWith('```')) {
@@ -26,10 +26,10 @@ function getReminder(context, referenceDate = null) {
     }
 
     // find /remind in line.
-    var words = line.split(' ');
-    var foundRemind = false;
+    const words = line.split(' ');
+    let foundRemind = false;
     for (let j=0; j<words.length; j++) {
-      var word = words[j];
+      const word = words[j];
       if (word === '/remind') {
         foundRemind = true;
         remindLine = words.slice(j).join(' ');

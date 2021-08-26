@@ -37,12 +37,12 @@ describe('getReminder', () => {
     const reminder = getReminder({
       ...issueContext,
       comment: {
-	body: "This is a test\r\n/remind me to do this in one day\r\nwith some text"
+        body: "This is a test\r\n/remind me to do this in one day\r\nwith some text"
       }
     }, REFERENCE_DATE);
 
     expect(reminder).toEqual({
-	    who: 'Codertocat', when: new Date(2017, 6, 6, 9, 0, 0, 0), what: 'do this'
+      who: 'Codertocat', when: new Date(2017, 6, 6, 9, 0, 0, 0), what: 'do this'
     });
   });
   test('can parse reminder within line', () => {
@@ -50,12 +50,12 @@ describe('getReminder', () => {
     const reminder = getReminder({
       ...issueContext,
       comment: {
-	      body: "This is a test: /remind me to do this in one day"
+        body: "This is a test: /remind me to do this in one day"
       }
     }, REFERENCE_DATE);
 
     expect(reminder).toEqual({
-	    who: 'Codertocat', when: new Date(2017, 6, 6, 9, 0, 0, 0), what: 'do this'
+      who: 'Codertocat', when: new Date(2017, 6, 6, 9, 0, 0, 0), what: 'do this'
     });
   });
   test('skips reminder in quote', () => {
@@ -63,7 +63,7 @@ describe('getReminder', () => {
     const reminder = getReminder({
       ...issueContext,
       comment: {
-	body: "This is a test\r\n> with some text\r\n> /remind me to do this in one day"
+        body: "This is a test\r\n> with some text\r\n> /remind me to do this in one day"
       }
     }, REFERENCE_DATE);
 
@@ -74,7 +74,7 @@ describe('getReminder', () => {
     const reminder = getReminder({
       ...issueContext,
       comment: {
-	body: "This is a test\r\n```\r\n/remind me to do this in one day\r\n```"
+        body: "This is a test\r\n```\r\n/remind me to do this in one day\r\n```"
       }
     }, REFERENCE_DATE);
 
@@ -85,7 +85,7 @@ describe('getReminder', () => {
     const reminder = getReminder({
       ...issueContext,
       comment: {
-	body: "This is a test\r\n```python\r\n/remind me to do this in one day\r\n```"
+        body: "This is a test\r\n```python\r\n/remind me to do this in one day\r\n```"
       }
     }, REFERENCE_DATE);
 
@@ -96,7 +96,7 @@ describe('getReminder', () => {
     const reminder = getReminder({
       ...issueContext,
       comment: {
-	      body: "This is a test: `/remind me to do this in one day`"
+        body: "This is a test: `/remind me to do this in one day`"
       }
     }, REFERENCE_DATE);
 
@@ -107,12 +107,12 @@ describe('getReminder', () => {
     const reminder = getReminder({
       ...issueContext,
       comment: {
-	body: "This is a test\r\n```\r\ncode here!\r\n```\r\n/remind me to do this in one day"
+        body: "This is a test\r\n```\r\ncode here!\r\n```\r\n/remind me to do this in one day"
       }
     }, REFERENCE_DATE);
 
     expect(reminder).toEqual({
-	    who: 'Codertocat', when: new Date(2017, 6, 6, 9, 0, 0, 0), what: 'do this'
+      who: 'Codertocat', when: new Date(2017, 6, 6, 9, 0, 0, 0), what: 'do this'
     });
   });
 });
