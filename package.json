@@ -4,8 +4,12 @@
   "description": "A GitHub Action for setting reminders in issues",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
-    "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
+    "format": "prettier --write ./ --ignore-path ./.ignore",
+    "format:fix": "prettier --loglevel warn --write \"./**/*.{js,md}\" --ignore-path ./.ignore",
+    "fix": "npm run format:fix && npm run lint:fix",
+    "lint": "eslint ./ --ext .js --ignore-path ./.ignore",
+    "lint:fix": "eslint ./ --ext .js --quiet --fix --ignore-path ./.ignore",
+    "prepare": "husky install && ncc build index.js -o dist --source-map --license licenses.txt",
     "test": "jest",
     "all": "npm run lint && npm run prepare && npm run test"
   },
@@ -34,6 +38,16 @@
   "devDependencies": {
     "@vercel/ncc": "^0.29.2",
     "eslint": "^7.32.0",
-    "jest": "^27.0.6"
+    "husky": "^7.0.2",
+    "jest": "^27.0.6",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2"
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix --ignore-path ./.ignore",
+    "*.{js,md}": "prettier --write --ignore-path ./.ignore"
   }
 }
