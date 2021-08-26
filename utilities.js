@@ -39,10 +39,10 @@ function addReminderToBody(body, reminder) {
 
   reminders.push({
     id,
-    ...reminder
+    ...reminder,
   });
 
-  const comment = `\n\n<!-- bot: ${JSON.stringify({reminders})} -->`
+  const comment = `\n\n<!-- bot: ${JSON.stringify({ reminders })} -->`;
   if (match) {
     return body.replace(regex, comment);
   }

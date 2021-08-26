@@ -1,20 +1,20 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const {getReminder, addReminderToBody} = require('./utilities');
+const { getReminder, addReminderToBody } = require('./utilities');
 const LABEL = 'reminder';
 
 function getIssueProps(context) {
   return {
     owner: context.repository.owner,
     repo: context.repository.name,
-    issue_number: context.issue.number
+    issue_number: context.issue.number,
   };
 }
 
 function createComment(octokit, context, body) {
   return octokit.rest.issues.createComment({
     ...getIssueProps(context),
-    body
+    body,
   });
 }
 
@@ -23,7 +23,7 @@ function updateIssue(octokit, context, reminder) {
 
   return octokit.rest.issues.update({
     ...getIssueProps(context),
-    body
+    body,
   });
 }
 
@@ -31,12 +31,14 @@ async function run() {
   const context = github.context.payload;
   const owner = core.getInput('repositoryOwner');
   const repository = core.getInput('repository');
-  const octokit = github.getOctokit(core.getInput('repoToken', {required:true}));
+  const octokit = github.getOctokit(
+    core.getInput('repoToken', { required: true })
+  );
   let reminder;
 
   context.repository = {
     owner,
-    name: repository.split('/')[1]
+    name: repository.split('/')[1],
   };
 
   try {
@@ -50,10 +52,13 @@ async function run() {
       return;
     }
     core.endGroup();
-
   } catch (error) {
     core.startGroup('create error comment');
-    await createComment(octokit, context, `@${context.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``);
+    await createComment(
+      octokit,
+      context,
+      `@${context.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``
+    );
     core.endGroup();
 
     core.setFailed(error);
@@ -65,7 +70,7 @@ async function run() {
   core.info(JSON.stringify(getIssueProps(context), null, 1));
   await octokit.rest.issues.addLabels({
     ...getIssueProps(context),
-    labels: [LABEL]
+    labels: [LABEL],
   });
   core.endGroup();
 
@@ -74,7 +79,13 @@ async function run() {
   core.endGroup();
 
   core.startGroup('add reminder comment');
-  await createComment(octokit, context, `@${context.sender.login} set a reminder for **${reminder.when.toLocaleDateString()}**`);
+  await createComment(
+    octokit,
+    context,
+    `@${
+      context.sender.login
+    } set a reminder for **${reminder.when.toLocaleDateString()}**`
+  );
   core.endGroup();
 }
 

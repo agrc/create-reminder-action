@@ -7,25 +7,27 @@ describe('getReminder', () => {
     const reminder = getReminder(issueContext, REFERENCE_DATE);
 
     expect(reminder).toEqual({
-      who: 'Codertocat', when: new Date(2017, 6, 6, 9, 0, 0, 0), what: 'do something'
+      who: 'Codertocat',
+      when: new Date(2017, 6, 6, 9, 0, 0, 0),
+      what: 'do something',
     });
   });
   test('returns null if not a slash command', () => {
     const reminder = getReminder({
       ...issueContext,
       comment: {
-        body: 'not a command'
-      }
+        body: 'not a command',
+      },
     });
 
     expect(reminder).toBeNull();
-  })
+  });
   test('returns null if the command is not remind', () => {
     const reminder = getReminder({
       ...issueContext,
       comment: {
-        body: '/not a command'
-      }
+        body: '/not a command',
+      },
     });
 
     expect(reminder).toBeNull();
@@ -37,7 +39,7 @@ describe('addReminderToBody', () => {
     const reminder = {
       who: '@hello',
       what: 'do it',
-      when: '1/2/3'
+      when: '1/2/3',
     };
     const body = addReminderToBody('this is the body', reminder);
 
@@ -51,7 +53,7 @@ describe('addReminderToBody', () => {
     const reminder = {
       who: '@someone',
       what: 'to something',
-      when: '1/1/2021'
+      when: '1/1/2021',
     };
     const existing = `
       this is the body

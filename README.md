@@ -30,15 +30,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: check for reminder
-      uses: agrc/create-reminder-action@v1.0.0
+      - name: check for reminder
+        uses: agrc/create-reminder-action@v1.0.0
 ```
 
 ## Package for distribution
 
 GitHub Actions will run the entry point from the action.yml. Packaging assembles the code into one file that can be checked in to Git, enabling fast and reliable execution and preventing the need to check in node_modules.
 
-Actions are run from GitHub repos.  Packaging the action will create a packaged action in the dist folder.
+Actions are run from GitHub repos. Packaging the action will create a packaged action in the dist folder.
 
 Run prepare
 
