@@ -27,16 +27,14 @@ function getReminder(context, referenceDate = null) {
 
     // find /remind in line.
     const words = line.split(' ');
-    let foundRemind = false;
     for (let j=0; j<words.length; j++) {
       const word = words[j];
       if (word === '/remind') {
-        foundRemind = true;
         remindLine = words.slice(j).join(' ');
         break;
       }
     }
-    if (foundRemind) {
+    if (remindLine !== null) {
       break;
     }
   }
