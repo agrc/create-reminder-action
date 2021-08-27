@@ -10,7 +10,7 @@ function getReminder(context, referenceDate = null) {
 
   const lines = body.split('\n');
   for (let i=0; i<lines.length; i++) {
-    const line = lines[i].trim('\r');
+    const line = lines[i].trim();
 
     // handle code blocks
     if (line.startsWith('```')) {
