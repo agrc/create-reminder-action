@@ -21,7 +21,7 @@ function getReminder(context, referenceDate = null) {
       continue;
 
     // handle quoted text
-    if (line.trim(' ').startsWith('>')) {
+    if (line.startsWith('>')) {
       continue;
     }
 
