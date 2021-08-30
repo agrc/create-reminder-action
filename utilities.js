@@ -9,7 +9,7 @@ function getReminder(context, referenceDate = null) {
   let inCode = false;
 
   const lines = body.split('\n');
-  for (let i=0; i<lines.length; i++) {
+  for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
 
     // handle code blocks
@@ -17,8 +17,7 @@ function getReminder(context, referenceDate = null) {
       inCode = !inCode;
       continue;
     }
-    if (inCode)
-      continue;
+    if (inCode) continue;
 
     // find /remind at the beginning of the line.
     if (line.startsWith('/remind ')) {
