@@ -20,18 +20,9 @@ function getReminder(context, referenceDate = null) {
     if (inCode)
       continue;
 
-    // handle quoted text
-    if (line.startsWith('>')) {
-      continue;
-    }
-
     // find /remind at the beginning of the line.
     if (line.startsWith('/remind ')) {
       remindLine = line;
-      break;
-    }
-
-    if (remindLine !== null) {
       break;
     }
   }
