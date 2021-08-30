@@ -25,15 +25,12 @@ function getReminder(context, referenceDate = null) {
       continue;
     }
 
-    // find /remind in line.
-    const words = line.split(' ');
-    for (let j=0; j<words.length; j++) {
-      const word = words[j];
-      if (word === '/remind') {
-        remindLine = words.slice(j).join(' ');
-        break;
-      }
+    // find /remind at the beginning of the line.
+    if (line.startsWith('/remind ')) {
+      remindLine = line;
+      break;
     }
+
     if (remindLine !== null) {
       break;
     }

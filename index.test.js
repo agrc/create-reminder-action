@@ -43,7 +43,7 @@ describe('getReminder', () => {
       who: 'Codertocat', when: new Date(2017, 6, 6, 9, 0, 0, 0), what: 'do this'
     });
   });
-  test('can parse reminder within line', () => {
+  test('does not parse reminder within line', () => {
     const REFERENCE_DATE = new Date(2017, 6, 5, 4, 3, 2, 0);
     const reminder = getReminder({
       ...issueContext,
@@ -52,9 +52,7 @@ describe('getReminder', () => {
       }
     }, REFERENCE_DATE);
 
-    expect(reminder).toEqual({
-      who: 'Codertocat', when: new Date(2017, 6, 6, 9, 0, 0, 0), what: 'do this'
-    });
+    expect(reminder).toBeNull();
   });
   test('skips reminder in quote', () => {
     const REFERENCE_DATE = new Date(2017, 6, 5, 4, 3, 2, 0);
