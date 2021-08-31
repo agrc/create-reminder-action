@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: check for reminder
-        uses: agrc/create-reminder-action@v1
+        uses: agrc/create-reminder-action@v1.1.0
 ```
 
 ## Package for distribution
