@@ -11,7 +11,7 @@
     "lint:fix": "eslint ./ --ext .js --quiet --fix --ignore-path ./.ignore",
     "prepare": "husky install && ncc build index.js -o dist --source-map --license licenses.txt",
     "test": "jest",
-    "all": "npm run lint && npm run prepare && npm run test"
+    "all": "npm run fix && npm run prepare && npm run test"
   },
   "repository": {
     "type": "git",
@@ -38,7 +38,7 @@
   "devDependencies": {
     "@vercel/ncc": "^0.31.1",
     "eslint": "^8.0.1",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.2",
     "jest": "^27.3.0",
     "lint-staged": "^11.2.3",
@@ -46,15 +46,21 @@
   },
   "eslintConfig": {
     "env": {
-      "node": true
+      "node": true,
+      "es6": true,
+      "jest": true
     },
     "extends": [
       "eslint:recommended",
-      "plugin:prettier/recommended"
-    ]
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2018
+    }
   },
   "prettier": {
-    "singleQuote": true
+    "singleQuote": true,
+    "semi": true
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix --ignore-path ./.ignore",
