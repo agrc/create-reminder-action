@@ -40,18 +40,29 @@ GitHub Actions will run the entry point from the action.yml. Packaging assembles
 
 Actions are run from GitHub repos. Packaging the action will create a packaged action in the dist folder.
 
-Run prepare
+1. Semantic version (_for major changes, a new v(major) branch is required_)
 
-```bash
-npm run prepare
-```
+   ```bash
+   npm version (minor | patch) --no-commit-hooks --no-git-tag-version
+   ```
 
-Since the packaged index.js is run from the dist folder.
+1. Run prepare
 
-```bash
-git add dist
-```
+   ```bash
+   npm run prepare
+   ```
 
-Use the draft a release workflow on GitHub.
+1. Since the packaged index.js is run from the dist folder.
 
-[pick a color](https://perchance.org/color-name) + [pet name generator](https://www.namegenerator.co/animals/pet-name-generator) with the first letter matching the first letter of the color
+   ```bash
+   git add dist package*.json
+   ```
+
+1. Commit changes
+
+   ```bash
+   git commit -am "release: v1.*.*"
+   ```
+
+1. Use the draft a release workflow on GitHub.
+   - [pick a color](https://perchance.org/color-name) + [pet name generator](https://www.namegenerator.co/animals/pet-name-generator) with the first letter matching the first letter of the color
