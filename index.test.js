@@ -175,4 +175,18 @@ describe('addReminderToBody', () => {
 
     expect(result).toEqual(expected);
   });
+  test('adds a reminder to an issue body that is empty', () => {
+    const reminder = {
+      who: '@hello',
+      what: 'do it',
+      when: '1/2/3',
+    };
+    const body = addReminderToBody(null, reminder);
+
+    const expected = `
+
+<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"1/2/3"}]} -->`;
+
+    expect(body).toEqual(expected);
+  });
 });
