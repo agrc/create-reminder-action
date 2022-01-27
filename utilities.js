@@ -45,6 +45,12 @@ function getReminder(context, referenceDate = null) {
 
 function addReminderToBody(body, reminder) {
   const regex = /\r?\n\r?\n<!-- bot: (?<reminder>{"reminders":.*) -->/;
+
+  // body is null instead of empty on no comment issues and pr's #83
+  if (!body) {
+    body = '';
+  }
+
   const match = body.match(regex);
 
   const reminders = match ? JSON.parse(match.groups.reminder).reminders : [];
