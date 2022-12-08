@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/agrc/create-reminder-action/compare/v1.1.4...v1.1.5) (2022-12-08)
+
+
+### 🐛 Bug Fixes
+
+* 🌲 november package updates ([f9dcec6](https://github.com/agrc/create-reminder-action/commit/f9dcec60034d7ac2c2e554322010c1d529639027))
+
 ## [1.1.4](https://github.com/agrc/create-reminder-action/compare/v1.1.3...v1.1.4) (2022-11-03)
 
 
