@@ -10,5 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: 👁 Monitor permissions
+        uses: GitHubSecurityLab/actions-permissions/monitor@v1
+
       - name: 🔍 Check for reminder
         uses: agrc/reminder-action@v1
