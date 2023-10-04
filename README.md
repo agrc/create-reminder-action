@@ -21,6 +21,10 @@ Use any form of `/remind me [what] [when]`, such as:
 ```yml
 name: 'create reminder'
 
+permissions:
+  issues: read
+  pull-requests: read
+
 on:
   issue_comment:
     types: [created, edited]
