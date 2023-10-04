@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Set up code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          show-progress: false
 
       - name: ⎔ Setup Node.js
         uses: actions/setup-node@v3
@@ -31,7 +33,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Set up code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          show-progress: false
 
       - name: ⎔ Setup Node.js
         uses: actions/setup-node@v3
@@ -60,7 +64,9 @@ jobs:
           private_key: ${{ secrets.UGRC_RELEASE_BOT_APP_KEY }}
 
       - name: ⬇️ Set up code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          show-progress: false
         with:
           ref: ${{ github.head_ref }}
           token: ${{ steps.generate_token.outputs.token }}
