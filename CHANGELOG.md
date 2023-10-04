@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.9](https://github.com/agrc/create-reminder-action/compare/v1.1.8...v1.1.9) (2023-10-04)
+
+
+### 🌲 Dependencies
+
+* update action dependencies ([b352b01](https://github.com/agrc/create-reminder-action/commit/b352b01980b5ba272dcffbdbbb1880623c4c4de1))
+
+
+### 📖 Documentation Improvements
+
+* add required permissions ([8c4827a](https://github.com/agrc/create-reminder-action/commit/8c4827aee3961414599af0cd583d9769eb56eb8e)), closes [#176](https://github.com/agrc/create-reminder-action/issues/176)
+
 ## [1.1.8](https://github.com/agrc/create-reminder-action/compare/v1.1.7...v1.1.8) (2023-07-04)
 
 
