@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.10](https://github.com/agrc/create-reminder-action/compare/v1.1.9...v1.1.10) (2023-10-05)
+
+
+### 🐛 Bug Fixes
+
+* bump node version ([c3a068a](https://github.com/agrc/create-reminder-action/commit/c3a068a121c23ac35fa94d2d32146670ef408e70))
+
 ## [1.1.9](https://github.com/agrc/create-reminder-action/compare/v1.1.8...v1.1.9) (2023-10-04)
 
 
