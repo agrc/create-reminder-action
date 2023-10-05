@@ -1,10 +1,7 @@
 version: 2
 updates:
-  # Enable version updates for npm
   - package-ecosystem: 'npm'
-    # Look for `package.json` and `lock` files in the `root` directory
     directory: '/'
-    # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: 'monthly'
     groups:
@@ -25,7 +22,5 @@ updates:
     schedule:
       interval: monthly
     groups:
-      production-dependencies:
+      ci-dependencies:
         dependency-type: 'production'
-      development-dependencies:
-        dependency-type: 'development'
