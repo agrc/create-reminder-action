@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.11](https://github.com/agrc/create-reminder-action/compare/v1.1.10...v1.1.11) (2023-10-10)
+
+
+### 🌲 Dependencies
+
+* bump the major-dependencies group with 1 update ([#195](https://github.com/agrc/create-reminder-action/issues/195)) ([12c1cc8](https://github.com/agrc/create-reminder-action/commit/12c1cc876d51c58b2074899e96997bf03c2bc556))
+* **dev:** bump the safe-dependencies group with 1 update ([#194](https://github.com/agrc/create-reminder-action/issues/194)) ([1b5df08](https://github.com/agrc/create-reminder-action/commit/1b5df08450dbb5ce7267fcb7a0e6b998d3a1cd01))
+
 ## [1.1.10](https://github.com/agrc/create-reminder-action/compare/v1.1.9...v1.1.10) (2023-10-05)
 
 
