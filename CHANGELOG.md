@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.12](https://github.com/agrc/create-reminder-action/compare/v1.1.11...v1.1.12) (2023-10-16)
+
+
+### 🌲 Dependencies
+
+* bump undici from 5.25.4 to 5.26.3 ([fc891aa](https://github.com/agrc/create-reminder-action/commit/fc891aa5d067c4b8a54a28d8b9c7cc54af4d5c0f))
+* **dev:** bump @babel/traverse from 7.23.0 to 7.23.2 ([b0c9d93](https://github.com/agrc/create-reminder-action/commit/b0c9d93f46317e9f98497ab3b0a46bb0a1fb0fbe))
+
 ## [1.1.11](https://github.com/agrc/create-reminder-action/compare/v1.1.10...v1.1.11) (2023-10-10)
 
 
