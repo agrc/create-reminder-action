@@ -19544,6 +19544,7 @@ module.exports = {
 
 const assert = __nccwpck_require__(9491)
 const net = __nccwpck_require__(1808)
+const http = __nccwpck_require__(3685)
 const { pipeline } = __nccwpck_require__(2781)
 const util = __nccwpck_require__(3983)
 const timers = __nccwpck_require__(9459)
@@ -19631,6 +19632,7 @@ const {
     HTTP2_HEADER_AUTHORITY,
     HTTP2_HEADER_METHOD,
     HTTP2_HEADER_PATH,
+    HTTP2_HEADER_SCHEME,
     HTTP2_HEADER_CONTENT_LENGTH,
     HTTP2_HEADER_EXPECT,
     HTTP2_HEADER_STATUS
@@ -19807,7 +19809,7 @@ class Client extends DispatcherBase {
     this[kConnector] = connect
     this[kSocket] = null
     this[kPipelining] = pipelining != null ? pipelining : 1
-    this[kMaxHeadersSize] = maxHeaderSize || 16384
+    this[kMaxHeadersSize] = maxHeaderSize || http.maxHeaderSize
     this[kKeepAliveDefaultTimeout] = keepAliveTimeout == null ? 4e3 : keepAliveTimeout
     this[kKeepAliveMaxTimeout] = keepAliveMaxTimeout == null ? 600e3 : keepAliveMaxTimeout
     this[kKeepAliveTimeoutThreshold] = keepAliveTimeoutThreshold == null ? 1e3 : keepAliveTimeoutThreshold
@@ -21227,7 +21229,7 @@ function writeH2 (client, session, request) {
   const h2State = client[kHTTP2SessionState]
 
   headers[HTTP2_HEADER_AUTHORITY] = host || client[kHost]
-  headers[HTTP2_HEADER_PATH] = path
+  headers[HTTP2_HEADER_METHOD] = method
 
   if (method === 'CONNECT') {
     session.ref()
@@ -21254,9 +21256,13 @@ function writeH2 (client, session, request) {
     })
 
     return true
-  } else {
-    headers[HTTP2_HEADER_METHOD] = method
   }
+
+  // https://tools.ietf.org/html/rfc7540#section-8.3
+  // :path and :scheme headers must be omited when sending CONNECT
+
+  headers[HTTP2_HEADER_PATH] = path
+  headers[HTTP2_HEADER_SCHEME] = 'https'
 
   // https://tools.ietf.org/html/rfc7231#section-4.3.1
   // https://tools.ietf.org/html/rfc7231#section-4.3.2
@@ -21394,6 +21400,7 @@ function writeH2 (client, session, request) {
       stream.cork()
       stream.write(body)
       stream.uncork()
+      stream.end()
       request.onBodySent(body)
       request.onRequestSent()
     } else if (util.isBlobLike(body)) {
@@ -21628,13 +21635,17 @@ async function writeIterable ({ h2stream, body, client, request, socket, content
           throw socket[kError]
         }
 
-        if (!h2stream.write(chunk)) {
+        const res = h2stream.write(chunk)
+        request.onBodySent(chunk)
+        if (!res) {
           await waitForDrain()
         }
       }
     } catch (err) {
       h2stream.destroy(err)
     } finally {
+      request.onRequestSent()
+      h2stream.end()
       h2stream
         .off('close', onDrain)
         .off('drain', onDrain)
@@ -21847,11 +21858,13 @@ class CompatFinalizer {
   }
 
   register (dispatcher, key) {
-    dispatcher.on('disconnect', () => {
-      if (dispatcher[kConnected] === 0 && dispatcher[kSize] === 0) {
-        this.finalizer(key)
-      }
-    })
+    if (dispatcher.on) {
+      dispatcher.on('disconnect', () => {
+        if (dispatcher[kConnected] === 0 && dispatcher[kSize] === 0) {
+          this.finalizer(key)
+        }
+      })
+    }
   }
 }
 
@@ -23517,7 +23530,8 @@ function processHeader (request, key, val, skipAppend = false) {
     key.toLowerCase() === 'content-type'
   ) {
     request.contentType = val
-    request.headers += processHeaderValue(key, val)
+    if (skipAppend) request.headers[key] = processHeaderValue(key, val, skipAppend)
+    else request.headers += processHeaderValue(key, val)
   } else if (
     key.length === 17 &&
     key.toLowerCase() === 'transfer-encoding'
@@ -28207,6 +28221,10 @@ async function httpRedirectFetch (fetchParams, response) {
   if (!sameOrigin(requestCurrentURL(request), locationURL)) {
     // https://fetch.spec.whatwg.org/#cors-non-wildcard-request-header-name
     request.headersList.delete('authorization')
+
+    // "Cookie" and "Host" are forbidden request-headers, which undici doesn't implement.
+    request.headersList.delete('cookie')
+    request.headersList.delete('host')
   }
 
   // 14. If request’s body is non-null, then set request’s body to the first return
@@ -28351,7 +28369,7 @@ async function httpNetworkOrCacheFetch (
   //    user agents should append `User-Agent`/default `User-Agent` value to
   //    httpRequest’s header list.
   if (!httpRequest.headersList.contains('user-agent')) {
-    httpRequest.headersList.append('user-agent', 'undici')
+    httpRequest.headersList.append('user-agent', typeof esbuildDetection === 'undefined' ? 'undici' : 'node')
   }
 
   //    15. If httpRequest’s cache mode is "default" and httpRequest’s header
@@ -28412,6 +28430,8 @@ async function httpNetworkOrCacheFetch (
       httpRequest.headersList.append('accept-encoding', 'gzip, deflate')
     }
   }
+
+  httpRequest.headersList.delete('host')
 
   //    20. If includeCredentials is true, then:
   if (includeCredentials) {
