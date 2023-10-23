@@ -22,8 +22,7 @@ Use any form of `/remind me [what] [when]`, such as:
 name: 'create reminder'
 
 permissions:
-  issues: read
-  pull-requests: read
+  issues: write
 
 on:
   issue_comment:
@@ -34,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: check for reminder
+      - name: 👀 check for reminder
         uses: agrc/create-reminder-action@v1
 ```
 
