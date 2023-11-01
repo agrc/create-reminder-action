@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.13](https://github.com/agrc/create-reminder-action/compare/v1.1.12...v1.1.13) (2023-11-01)
+
+
+### 🌲 Dependencies
+
+* **dev:** bump the safe-dependencies group with 3 updates ([ecfe1b5](https://github.com/agrc/create-reminder-action/commit/ecfe1b51bc151e5437ce59499fef539d09e3d592))
+
+
+### 📖 Documentation Improvements
+
+* update permissions ([5d868fd](https://github.com/agrc/create-reminder-action/commit/5d868fdd63a64e9aae79256a8685559e14f011e6))
+
 ## [1.1.12](https://github.com/agrc/create-reminder-action/compare/v1.1.11...v1.1.12) (2023-10-16)
 
 
