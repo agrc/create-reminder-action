@@ -10,11 +10,12 @@ _This action requires the use of [agrc/reminder-action](https://github.com/agrc/
 
 Use the `/remind` slash command to set a reminder on any comment box on GitHub and you'll get a ping about it again when the reminder is due.
 
-Use any form of `/remind me [what] [when]`, such as:
+Use any form of `/remind [who] [what] [when]`, such as:
 
 - `/remind me to deploy on Oct 10`
 - `/remind me next Monday to review the requirements`
 - `/remind me that the specs on the rotary girder need checked in 6 months`
+- `/remind @<username> to fix this issue tomorrow`
 
 ## Sample Usage
 
