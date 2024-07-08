@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.1.14](https://github.com/agrc/create-reminder-action/compare/v1.1.13...v1.1.14) (2024-07-08)
+
+
+### Bug Fixes
+
+* fix and complete reminder actions implementation ([67da3fa](https://github.com/agrc/create-reminder-action/commit/67da3fa01111f06c75fcfb660b17be856680be21))
+
+
+### Dependencies
+
+* eslint v8 -&gt; v9 ([c7a8738](https://github.com/agrc/create-reminder-action/commit/c7a873853b8b051053781019c231ea8dc22507a6))
+* q4 package updates ([4dc7886](https://github.com/agrc/create-reminder-action/commit/4dc78861c4f8613737747486796b1eaecbe86530))
+
+
+### Documentation
+
+* add an example of reminding someone else ([#215](https://github.com/agrc/create-reminder-action/issues/215)) ([9a0548e](https://github.com/agrc/create-reminder-action/commit/9a0548e2e457fc67b6770e932e3f6e1394482bf4)), closes [#211](https://github.com/agrc/create-reminder-action/issues/211)
+
 ## [1.1.13](https://github.com/agrc/create-reminder-action/compare/v1.1.12...v1.1.13) (2024-04-03)
 
 
