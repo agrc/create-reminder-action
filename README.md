@@ -24,6 +24,7 @@ name: 'create reminder'
 
 permissions:
   issues: write
+  pull-requests: write
 
 on:
   issue_comment:
