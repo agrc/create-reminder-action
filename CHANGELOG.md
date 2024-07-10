@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.15](https://github.com/agrc/create-reminder-action/compare/v1.1.14...v1.1.15) (2024-07-10)
+
+
+### Documentation
+
+* add pull requests permission to example ([0aab50a](https://github.com/agrc/create-reminder-action/commit/0aab50afc7bcf7d994bf53677f6d121511ae653a))
+
 ## [1.1.14](https://github.com/agrc/create-reminder-action/compare/v1.1.13...v1.1.14) (2024-07-08)
 
 
