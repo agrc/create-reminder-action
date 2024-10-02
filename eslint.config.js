@@ -10,7 +10,13 @@ const compat = new FlatCompat({
 
 module.exports = [
   {
-    ignores: ['**/dist/'],
+    ignores: [
+      '**/dist/',
+      'node_modules/',
+      '.github/',
+      'package.json',
+      'package-lock.json',
+    ],
   },
   ...compat.extends('eslint:recommended', 'prettier'),
   {

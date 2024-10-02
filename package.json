@@ -53,7 +53,7 @@
     "semi": true
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix --ignore-path ./.ignore",
+    "*.js": "eslint --cache --fix",
     "*.{js,md}": "prettier --write --ignore-path ./.ignore"
   }
 }
