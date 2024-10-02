@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.16](https://github.com/agrc/create-reminder-action/compare/v1.1.15...v1.1.16) (2024-10-02)
+
+
+### Dependencies
+
+* FY25 Q2 dependency updates 🌲 ([32fe09f](https://github.com/agrc/create-reminder-action/commit/32fe09f199c6713f87d2a54610999b456819f351))
+
 ## [1.1.15](https://github.com/agrc/create-reminder-action/compare/v1.1.14...v1.1.15) (2024-07-10)
 
 
