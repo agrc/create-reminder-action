@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.18](https://github.com/agrc/create-reminder-action/compare/v1.1.17...v1.1.18) (2025-04-21)
+
+
+### Bug Fixes
+
+* Replace date format with ISO 8601 ([5530cde](https://github.com/agrc/create-reminder-action/commit/5530cde688acaa50f4acca0b060cb2764f34f2ed))
+
+
+### Dependencies
+
+* bump the npm_and_yarn group with 2 updates ([8b314d0](https://github.com/agrc/create-reminder-action/commit/8b314d0acebfc799cb21c5accab687a9c73dea5a))
+* **dev:** bump the safe-dependencies group across 1 directory with 6 updates ([558f6ab](https://github.com/agrc/create-reminder-action/commit/558f6abb4d59eda1eae8bbb71eb0fe1a3d999351))
+
 ## [1.1.17](https://github.com/agrc/create-reminder-action/compare/v1.1.16...v1.1.17) (2025-01-01)
 
 
