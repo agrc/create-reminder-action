@@ -3,7 +3,7 @@ import parseReminder from 'parse-reminder';
 ///{ who: 'me',
 //   what: 'call the doctor',
 //   when: 2017-09-12T12:00:00.000Z }
-function getReminder(context, referenceDate = null) {
+export function getReminder(context, referenceDate = null) {
   const body = context.comment.body;
   let remindLine = null;
   let inCode = false;
@@ -43,7 +43,7 @@ function getReminder(context, referenceDate = null) {
   return reminder;
 }
 
-function addReminderToBody(body, reminder) {
+export function addReminderToBody(body, reminder) {
   const regex = /\r?\n\r?\n<!-- bot: (?<reminder>{"reminders":.*) -->/;
 
   // body is null instead of empty on no comment issues and pr's #83
@@ -71,5 +71,3 @@ function addReminderToBody(body, reminder) {
 
   return `${body}${comment}`;
 }
-
-export default { getReminder, addReminderToBody };

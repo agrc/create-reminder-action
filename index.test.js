@@ -1,5 +1,6 @@
 import issueContext from './issue_comment_payload.json';
 import { getReminder, addReminderToBody } from './utilities';
+import { describe, test, expect } from 'vitest';
 
 describe('getReminder', () => {
   test('can parse context', () => {
@@ -41,7 +42,7 @@ describe('getReminder', () => {
           body: 'This is a test\r\n/remind me to do this in one day\r\nwith some text',
         },
       },
-      REFERENCE_DATE
+      REFERENCE_DATE,
     );
 
     expect(reminder).toEqual({
@@ -59,7 +60,7 @@ describe('getReminder', () => {
           body: 'This is a test: /remind me to do this in one day',
         },
       },
-      REFERENCE_DATE
+      REFERENCE_DATE,
     );
 
     expect(reminder).toBeNull();
@@ -73,7 +74,7 @@ describe('getReminder', () => {
           body: 'This is a test\r\n> with some text\r\n> /remind me to do this in one day',
         },
       },
-      REFERENCE_DATE
+      REFERENCE_DATE,
     );
 
     expect(reminder).toBeNull();
@@ -87,7 +88,7 @@ describe('getReminder', () => {
           body: 'This is a test\r\n```\r\n/remind me to do this in one day\r\n```',
         },
       },
-      REFERENCE_DATE
+      REFERENCE_DATE,
     );
 
     expect(reminder).toBeNull();
@@ -101,7 +102,7 @@ describe('getReminder', () => {
           body: 'This is a test\r\n```python\r\n/remind me to do this in one day\r\n```',
         },
       },
-      REFERENCE_DATE
+      REFERENCE_DATE,
     );
 
     expect(reminder).toBeNull();
@@ -115,7 +116,7 @@ describe('getReminder', () => {
           body: 'This is a test: `/remind me to do this in one day`',
         },
       },
-      REFERENCE_DATE
+      REFERENCE_DATE,
     );
 
     expect(reminder).toBeNull();
@@ -129,7 +130,7 @@ describe('getReminder', () => {
           body: 'This is a test\r\n```\r\ncode here!\r\n```\r\n/remind me to do this in one day',
         },
       },
-      REFERENCE_DATE
+      REFERENCE_DATE,
     );
 
     expect(reminder).toEqual({
