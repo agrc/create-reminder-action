@@ -1,6 +1,6 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
-const { getReminder, addReminderToBody } = require('./utilities');
+import { getInput, startGroup, info, endGroup, setFailed } from '@actions/core';
+import { context as ghContext, getOctokit } from '@actions/github';
+import { getReminder, addReminderToBody } from './utilities';
 const LABEL = 'reminder';
 
 function getIssueProps(context) {
@@ -28,11 +28,11 @@ function updateIssue(octokit, context, reminder) {
 }
 
 async function run() {
-  const context = github.context.payload;
-  const owner = core.getInput('repositoryOwner');
-  const repository = core.getInput('repository');
-  const octokit = github.getOctokit(
-    core.getInput('repoToken', { required: true })
+  const context = ghContext.payload;
+  const owner = getInput('repositoryOwner');
+  const repository = getInput('repository');
+  const octokit = getOctokit(
+    getInput('repoToken', { required: true })
   );
   let reminder;
 
@@ -42,43 +42,43 @@ async function run() {
   };
 
   try {
-    core.startGroup('parsing reminder');
+    startGroup('parsing reminder');
     reminder = getReminder(context);
 
-    core.info(JSON.stringify(reminder, null, 1));
+    info(JSON.stringify(reminder, null, 1));
 
     if (!reminder) {
-      core.info('no reminder found');
+      info('no reminder found');
       return;
     }
-    core.endGroup();
+    endGroup();
   } catch (error) {
-    core.startGroup('create error comment');
+    startGroup('create error comment');
     await createComment(
       octokit,
       context,
       `@${context.sender.login} we had trouble parsing your reminder. Try:\n\n\`/remind me [what] [when]\``
     );
-    core.endGroup();
+    endGroup();
 
-    core.setFailed(error);
+    setFailed(error);
 
     return;
   }
 
-  core.startGroup('add label');
-  core.info(JSON.stringify(getIssueProps(context), null, 1));
+  startGroup('add label');
+  info(JSON.stringify(getIssueProps(context), null, 1));
   await octokit.rest.issues.addLabels({
     ...getIssueProps(context),
     labels: [LABEL],
   });
-  core.endGroup();
+  endGroup();
 
-  core.startGroup('update issue');
+  startGroup('update issue');
   await updateIssue(octokit, context, reminder);
-  core.endGroup();
+  endGroup();
 
-  core.startGroup('add reminder comment');
+  startGroup('add reminder comment');
   await createComment(
     octokit,
     context,
@@ -86,7 +86,7 @@ async function run() {
       context.sender.login
     } set a reminder for **${reminder.when.toISOString().split('T')[0]}**`
   );
-  core.endGroup();
+  endGroup();
 }
 
 run();
