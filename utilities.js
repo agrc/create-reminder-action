@@ -1,4 +1,4 @@
-const parseReminder = require('parse-reminder');
+import parseReminder from 'parse-reminder';
 
 ///{ who: 'me',
 //   what: 'call the doctor',
@@ -72,4 +72,4 @@ function addReminderToBody(body, reminder) {
   return `${body}${comment}`;
 }
 
-module.exports = { getReminder, addReminderToBody };
+export default { getReminder, addReminderToBody };

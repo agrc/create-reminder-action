@@ -1,5 +1,5 @@
-const issueContext = require('./issue_comment_payload.json');
-const { getReminder, addReminderToBody } = require('./utilities');
+import issueContext from './issue_comment_payload.json';
+import { getReminder, addReminderToBody } from './utilities';
 
 describe('getReminder', () => {
   test('can parse context', () => {
