@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.19-0](https://github.com/agrc/create-reminder-action/compare/v1.1.18...v1.1.19-0) (2025-05-12)
+
+
+### Dependencies
+
+* bump dependencies 🌲 ([fa951ba](https://github.com/agrc/create-reminder-action/commit/fa951ba2a7b250baf7aae15addee47d7f3ed8a63)), closes [#217](https://github.com/agrc/create-reminder-action/issues/217)
+* bump lint-staged ([0925704](https://github.com/agrc/create-reminder-action/commit/0925704a457d9bb11fe44c3d52b2ebb9479a6d5d))
+
+
+### Documentation
+
+* remove packaging and release docs ([4468006](https://github.com/agrc/create-reminder-action/commit/4468006473edc3fbdf47c719e831542321c74e11))
+
 ## [1.1.18](https://github.com/agrc/create-reminder-action/compare/v1.1.17...v1.1.18) (2025-04-21)
 
 
