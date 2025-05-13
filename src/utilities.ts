@@ -1,11 +1,12 @@
 import parseReminder from 'parse-reminder';
+import { type IssueCommentCreatedOrEditedEvent } from './index.js';
 
 ///{ who: 'me',
 //   what: 'call the doctor',
 //   when: 2017-09-12T12:00:00.000Z }
-export function getReminder(context, referenceDate = null) {
+export function getReminder(context: IssueCommentCreatedOrEditedEvent, referenceDate?: Date) {
   const body = context.comment.body;
-  let remindLine = null;
+  let remindLine: string | null = null;
   let inCode = false;
 
   const lines = body.split('\n');
@@ -43,7 +44,7 @@ export function getReminder(context, referenceDate = null) {
   return reminder;
 }
 
-export function addReminderToBody(body, reminder) {
+export function addReminderToBody(body: string | null, reminder: Reminder): string {
   const regex = /\r?\n\r?\n<!-- bot: (?<reminder>{"reminders":.*) -->/;
 
   // body is null instead of empty on no comment issues and pr's #83
@@ -53,7 +54,18 @@ export function addReminderToBody(body, reminder) {
 
   const match = body.match(regex);
 
-  const reminders = match ? JSON.parse(match.groups.reminder).reminders : [];
+  interface ReminderWithId extends Reminder {
+    id: number;
+  }
+
+  interface RemindersContainer {
+    reminders: ReminderWithId[];
+  }
+
+  const reminders: ReminderWithId[] = match
+    ? (JSON.parse(match.groups?.reminder || '{"reminders":[]}') as RemindersContainer).reminders
+    : [];
+
   let id = 1;
   if (reminders.length > 0) {
     id = reminders[reminders.length - 1].id + 1;

@@ -1,11 +1,12 @@
-import issueContext from './issue_comment_payload.json';
-import { getReminder, addReminderToBody } from './utilities';
-import { describe, test, expect } from 'vitest';
+import { IssueCommentCreatedEvent } from '@octokit/webhooks-types';
+import { describe, expect, test } from 'vitest';
+import issueContext from '../test/fixtures/issue_comment_payload.json' with { type: 'json' };
+import { addReminderToBody, getReminder } from './utilities.js';
 
 describe('getReminder', () => {
   test('can parse context', () => {
     const REFERENCE_DATE = new Date(2017, 6, 5, 4, 3, 2, 0);
-    const reminder = getReminder(issueContext, REFERENCE_DATE);
+    const reminder = getReminder(issueContext as IssueCommentCreatedEvent, REFERENCE_DATE);
 
     expect(reminder).toEqual({
       who: 'Codertocat',
@@ -19,7 +20,7 @@ describe('getReminder', () => {
       comment: {
         body: 'not a command',
       },
-    });
+    } as IssueCommentCreatedEvent);
 
     expect(reminder).toBeNull();
   });
@@ -29,7 +30,7 @@ describe('getReminder', () => {
       comment: {
         body: '/not a command',
       },
-    });
+    } as IssueCommentCreatedEvent);
 
     expect(reminder).toBeNull();
   });
@@ -41,7 +42,7 @@ describe('getReminder', () => {
         comment: {
           body: 'This is a test\r\n/remind me to do this in one day\r\nwith some text',
         },
-      },
+      } as IssueCommentCreatedEvent,
       REFERENCE_DATE,
     );
 
@@ -59,7 +60,7 @@ describe('getReminder', () => {
         comment: {
           body: 'This is a test: /remind me to do this in one day',
         },
-      },
+      } as IssueCommentCreatedEvent,
       REFERENCE_DATE,
     );
 
@@ -73,7 +74,7 @@ describe('getReminder', () => {
         comment: {
           body: 'This is a test\r\n> with some text\r\n> /remind me to do this in one day',
         },
-      },
+      } as IssueCommentCreatedEvent,
       REFERENCE_DATE,
     );
 
@@ -87,7 +88,7 @@ describe('getReminder', () => {
         comment: {
           body: 'This is a test\r\n```\r\n/remind me to do this in one day\r\n```',
         },
-      },
+      } as IssueCommentCreatedEvent,
       REFERENCE_DATE,
     );
 
@@ -101,7 +102,7 @@ describe('getReminder', () => {
         comment: {
           body: 'This is a test\r\n```python\r\n/remind me to do this in one day\r\n```',
         },
-      },
+      } as IssueCommentCreatedEvent,
       REFERENCE_DATE,
     );
 
@@ -115,7 +116,7 @@ describe('getReminder', () => {
         comment: {
           body: 'This is a test: `/remind me to do this in one day`',
         },
-      },
+      } as IssueCommentCreatedEvent,
       REFERENCE_DATE,
     );
 
@@ -129,7 +130,7 @@ describe('getReminder', () => {
         comment: {
           body: 'This is a test\r\n```\r\ncode here!\r\n```\r\n/remind me to do this in one day',
         },
-      },
+      } as IssueCommentCreatedEvent,
       REFERENCE_DATE,
     );
 
@@ -146,13 +147,13 @@ describe('addReminderToBody', () => {
     const reminder = {
       who: '@hello',
       what: 'do it',
-      when: '1/2/3',
+      when: new Date('1/2/3'),
     };
     const body = addReminderToBody('this is the body', reminder);
 
     const expected = `this is the body
 
-<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"1/2/3"}]} -->`;
+<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"2003-01-02T07:00:00.000Z"}]} -->`;
 
     expect(body).toEqual(expected);
   });
@@ -160,17 +161,17 @@ describe('addReminderToBody', () => {
     const reminder = {
       who: '@someone',
       what: 'to something',
-      when: '1/1/2021',
+      when: new Date('1/1/2021'),
     };
     const existing = `
       this is the body
 
-<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"1/2/3"}]} -->
+<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"2003-01-02"}]} -->
     `;
     const expected = `
       this is the body
 
-<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"1/2/3"},{"id":2,"who":"@someone","what":"to something","when":"1/1/2021"}]} -->
+<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"2003-01-02"},{"id":2,"who":"@someone","what":"to something","when":"2021-01-01T07:00:00.000Z"}]} -->
     `;
     const result = addReminderToBody(existing, reminder);
 
@@ -180,13 +181,13 @@ describe('addReminderToBody', () => {
     const reminder = {
       who: '@hello',
       what: 'do it',
-      when: '1/2/3',
+      when: new Date('1/2/3'),
     };
     const body = addReminderToBody(null, reminder);
 
     const expected = `
 
-<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"1/2/3"}]} -->`;
+<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"2003-01-02T07:00:00.000Z"}]} -->`;
 
     expect(body).toEqual(expected);
   });
