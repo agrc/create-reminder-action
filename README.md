@@ -17,6 +17,21 @@ Use any form of `/remind [who] [what] [when]`, such as:
 - `/remind me that the specs on the rotary girder need checked in 6 months`
 - `/remind @<username> to fix this issue tomorrow`
 
+## Development
+
+The project uses TypeScript and is built with Vite. To develop:
+
+```bash
+# Install dependencies
+pnpm install
+
+# Run tests
+pnpm test
+
+# Build the project
+pnpm run package
+```
+
 ## Sample Usage
 
 ```yml
