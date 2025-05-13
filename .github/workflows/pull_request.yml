@@ -97,6 +97,9 @@ jobs:
       - name: 📥 Download dependencies
         run: pnpm install
 
+      - name: 🏗️ Build release assets
+        run: pnpm run build
+
       - name: 🏗️ Commit and push if needed
         run: |
           git config user.name "${{ secrets.UGRC_RELEASE_BOT_NAME }}"
