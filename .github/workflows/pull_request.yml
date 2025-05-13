@@ -7,8 +7,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint:
-    name: Lint
+  test-check:
+    name: Lint and check types
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Set up code
@@ -32,6 +32,9 @@ jobs:
 
       - name: 🧵 Lint
         run: pnpm run lint
+
+      - name: 🧪 Check types
+        run: pnpm run check
 
   test-unit:
     name: Unit tests
