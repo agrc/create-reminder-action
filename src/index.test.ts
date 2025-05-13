@@ -147,13 +147,13 @@ describe('addReminderToBody', () => {
     const reminder = {
       who: '@hello',
       what: 'do it',
-      when: new Date('1/2/3'),
+      when: new Date(Date.UTC(2003, 0, 2, 0, 0, 0, 0)),
     };
     const body = addReminderToBody('this is the body', reminder);
 
     const expected = `this is the body
 
-<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"2003-01-02T07:00:00.000Z"}]} -->`;
+<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"2003-01-02T00:00:00.000Z"}]} -->`;
 
     expect(body).toEqual(expected);
   });
@@ -161,7 +161,7 @@ describe('addReminderToBody', () => {
     const reminder = {
       who: '@someone',
       what: 'to something',
-      when: new Date('1/1/2021'),
+      when: new Date(Date.UTC(2021, 0, 1, 0, 0, 0, 0)),
     };
     const existing = `
       this is the body
@@ -171,7 +171,7 @@ describe('addReminderToBody', () => {
     const expected = `
       this is the body
 
-<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"2003-01-02"},{"id":2,"who":"@someone","what":"to something","when":"2021-01-01T07:00:00.000Z"}]} -->
+<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"2003-01-02"},{"id":2,"who":"@someone","what":"to something","when":"2021-01-01T00:00:00.000Z"}]} -->
     `;
     const result = addReminderToBody(existing, reminder);
 
@@ -181,13 +181,13 @@ describe('addReminderToBody', () => {
     const reminder = {
       who: '@hello',
       what: 'do it',
-      when: new Date('1/2/3'),
+      when: new Date(Date.UTC(2003, 0, 2, 0, 0, 0, 0)),
     };
     const body = addReminderToBody(null, reminder);
 
     const expected = `
 
-<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"2003-01-02T07:00:00.000Z"}]} -->`;
+<!-- bot: {"reminders":[{"id":1,"who":"@hello","what":"do it","when":"2003-01-02T00:00:00.000Z"}]} -->`;
 
     expect(body).toEqual(expected);
   });
