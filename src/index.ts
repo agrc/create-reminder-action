@@ -12,6 +12,7 @@ function getIssueProps(context: IssueCommentCreatedOrEditedEvent) {
   const inputOwner = getInput('repositoryOwner');
   const inputRepository = getInput('repository');
   const repo = inputRepository ? inputRepository.split('/')[1] : context.repository.name;
+
   return {
     owner: inputOwner ?? context.repository.owner.login,
     repo,
@@ -36,7 +37,20 @@ function updateIssue(octokit: Octokit, context: IssueCommentCreatedOrEditedEvent
 }
 
 async function run() {
-  const context = ghContext.payload as IssueCommentCreatedOrEditedEvent;
+  const testContextPath = getInput('testContextPath', { required: false });
+  let testContext: IssueCommentCreatedOrEditedEvent | null = null;
+  if (testContextPath) {
+    info('running in test mode');
+
+    try {
+      testContext = await import(testContextPath);
+    } catch (error) {
+      setFailed(`failed to import testContextPath (${testContextPath}): ${error}`);
+
+      return;
+    }
+  }
+  const context = testContext || (ghContext.payload as IssueCommentCreatedOrEditedEvent);
   const octokit = getOctokit(getInput('repoToken', { required: true }));
   let reminder: Reminder | null = null;
 
