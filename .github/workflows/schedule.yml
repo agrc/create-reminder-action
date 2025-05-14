@@ -1,4 +1,4 @@
-name: 'check reminders'
+name: 'Check Reminders'
 
 on:
   schedule:
