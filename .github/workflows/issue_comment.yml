@@ -1,8 +1,8 @@
 name: Issue Comment Events
 
 permissions:
-  issues: read
-  pull-requests: read
+  issues: write
+  pull-requests: write
 
 on:
   issue_comment:
@@ -14,5 +14,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check if branch exists
+        id: check-branch-exists
+        run: |
+          if [[ -n $(git ls-remote --heads origin dev) ]]; then
+              echo "exists=yes" >> $GITHUB_OUTPUT
+          else
+              echo "exists=no" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+
       - name: 🔍 Check for reminder
-        uses: agrc/create-reminder-action@v1
+        if: ${{ steps.check-branch-exists.outputs.exists == 'yes' }}
+        uses: agrc/create-reminder-action@dev
+
+      - name: 🔍 Check for reminder
+        if: ${{ steps.check-branch-exists.outputs.exists == 'no' }}
+        uses: agrc/create-reminder-action@main
