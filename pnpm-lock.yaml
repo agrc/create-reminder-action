@@ -30,15 +30,15 @@ importers:
       '@rollup/plugin-typescript':
         specifier: ^12.1.2
         version: 12.1.2(rollup@4.40.2)(tslib@2.8.1)(typescript@5.8.3)
+      '@total-typescript/tsconfig':
+        specifier: ^1.0.4
+        version: 1.0.4
       '@types/node':
         specifier: ^22.15.17
         version: 22.15.17
       '@ugrc/eslint-config':
         specifier: ^1.2.2
         version: 1.2.2(@typescript-eslint/parser@8.32.0(eslint@9.26.0)(typescript@5.8.3))(eslint@9.26.0)(typescript@5.8.3)
-      '@ugrc/tsconfigs':
-        specifier: ^1.0.3
-        version: 1.0.3
       '@vercel/ncc':
         specifier: ^0.38.3
         version: 0.38.3
@@ -584,9 +584,6 @@ packages:
     resolution: {integrity: sha512-g/cfO6APiqHfKTJvOwS6Uh8la/BAtOJ7rPTblGixYKgVnH4j7JXP+f9UH3Zlh9A8Et8GXRLgSgI9L4r41FuJDg==}
     peerDependencies:
       eslint: '>=9'
-
-  '@ugrc/tsconfigs@1.0.3':
-    resolution: {integrity: sha512-9Z84bZpLJ6wRi4sm6RWvckPHs/Q6XZCHW5yjeHZzboZi/1bsJUOoh3F5wT/qQ5EKewDcHk65WcvUTWPc+JYjtQ==}
 
   '@vercel/ncc@0.38.3':
     resolution: {integrity: sha512-rnK6hJBS6mwc+Bkab+PGPs9OiS0i/3kdTO+CkI8V0/VrW3vmz7O2Pxjw/owOlmo6PKEIxRSeZKv/kuL9itnpYA==}
@@ -2533,10 +2530,6 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
       - typescript
-
-  '@ugrc/tsconfigs@1.0.3':
-    dependencies:
-      '@total-typescript/tsconfig': 1.0.4
 
   '@vercel/ncc@0.38.3': {}
 

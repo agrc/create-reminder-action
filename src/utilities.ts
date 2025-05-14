@@ -11,7 +11,7 @@ export function getReminder(context: IssueCommentCreatedOrEditedEvent, reference
 
   const lines = body.split('\n');
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
+    const line = lines[i]!.trim();
 
     // handle code blocks
     if (line.startsWith('```')) {
@@ -68,7 +68,7 @@ export function addReminderToBody(body: string | null, reminder: Reminder): stri
 
   let id = 1;
   if (reminders.length > 0) {
-    id = reminders[reminders.length - 1].id + 1;
+    id = reminders[reminders.length - 1]!.id + 1;
   }
 
   reminders.push({
