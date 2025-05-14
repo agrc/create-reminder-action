@@ -31230,6 +31230,8 @@ function requireGithub () {
 
 var githubExports = requireGithub();
 
+requireUtils();
+
 var cjs = {};
 
 var en = {};
@@ -43219,10 +43221,20 @@ const LABEL = 'reminder';
 function getIssueProps(context) {
     const inputOwner = coreExports.getInput('repositoryOwner');
     const inputRepository = coreExports.getInput('repository');
-    const repo = inputRepository ? inputRepository.split('/')[1] : context.repository.name;
+    let repo;
+    if (inputRepository) {
+        const parts = inputRepository.split('/');
+        if (parts.length !== 2) {
+            throw new Error(`Invalid repository input: ${inputRepository}`);
+        }
+        repo = parts[1];
+    }
+    else {
+        repo = context.repository.name;
+    }
     return {
         owner: inputOwner ?? context.repository.owner.login,
-        repo,
+        repo: repo,
         issue_number: context.issue.number,
     };
 }

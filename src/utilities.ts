@@ -1,5 +1,5 @@
 import parseReminder from 'parse-reminder';
-import { type IssueCommentCreatedOrEditedEvent } from './index.js';
+import { type IssueCommentCreatedOrEditedEvent } from './types.js';
 
 ///{ who: 'me',
 //   what: 'call the doctor',

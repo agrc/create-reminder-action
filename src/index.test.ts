@@ -1,4 +1,4 @@
-import { type IssueCommentCreatedEvent } from '@octokit/webhooks-types';
+import type { IssueCommentCreatedEvent } from '@octokit/webhooks-types';
 import { describe, expect, test } from 'vitest';
 import issueContext from '../test/fixtures/issue_comment_payload.json' with { type: 'json' };
 import { addReminderToBody, getReminder } from './utilities.js';
