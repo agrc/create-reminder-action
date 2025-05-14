@@ -1,26 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./base.json",
-  "compilerOptions": {
-    "allowImportingTsExtensions": false,
-    "allowSyntheticDefaultImports": true,
-    "declaration": false,
-    "declarationMap": false,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["ES2022"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "newLine": "lf",
-    "noImplicitAny": true,
-    "noEmit": true,
-    "pretty": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "target": "ES2022"
-  },
+  "extends": "@total-typescript/tsconfig/bundler/no-dom",
   "exclude": ["test/fixtures", "coverage", "dist", "node_modules"],
   "include": ["src"]
 }

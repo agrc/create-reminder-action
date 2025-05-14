@@ -1,7 +1,7 @@
 import { endGroup, getInput, info, setFailed, startGroup } from '@actions/core';
 import { getOctokit, context as ghContext } from '@actions/github';
 import { GitHub } from '@actions/github/lib/utils.js';
-import { IssueCommentCreatedEvent, IssueCommentEditedEvent } from '@octokit/webhooks-types';
+import type { IssueCommentCreatedEvent, IssueCommentEditedEvent } from '@octokit/webhooks-types';
 import { addReminderToBody, getReminder } from './utilities.js';
 const LABEL = 'reminder';
 
@@ -11,11 +11,20 @@ type Octokit = InstanceType<typeof GitHub>;
 function getIssueProps(context: IssueCommentCreatedOrEditedEvent) {
   const inputOwner = getInput('repositoryOwner');
   const inputRepository = getInput('repository');
-  const repo = inputRepository ? inputRepository.split('/')[1] : context.repository.name;
+  let repo: string;
+  if (inputRepository) {
+    const parts = inputRepository.split('/');
+    if (parts.length !== 2) {
+      throw new Error(`Invalid repository input: ${inputRepository}`);
+    }
+    repo = parts[1]!;
+  } else {
+    repo = context.repository.name;
+  }
 
   return {
     owner: inputOwner ?? context.repository.owner.login,
-    repo,
+    repo: repo,
     issue_number: context.issue.number,
   };
 }
