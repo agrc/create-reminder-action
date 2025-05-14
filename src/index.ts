@@ -1,11 +1,10 @@
 import { endGroup, getInput, info, setFailed, startGroup } from '@actions/core';
 import { getOctokit, context as ghContext } from '@actions/github';
 import { GitHub } from '@actions/github/lib/utils.js';
-import type { IssueCommentCreatedEvent, IssueCommentEditedEvent } from '@octokit/webhooks-types';
+import type { IssueCommentCreatedOrEditedEvent } from './types.js';
 import { addReminderToBody, getReminder } from './utilities.js';
 const LABEL = 'reminder';
 
-export type IssueCommentCreatedOrEditedEvent = IssueCommentCreatedEvent | IssueCommentEditedEvent;
 type Octokit = InstanceType<typeof GitHub>;
 
 function getIssueProps(context: IssueCommentCreatedOrEditedEvent) {
