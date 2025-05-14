@@ -17,7 +17,7 @@ jobs:
       - name: Check if branch exists
         id: check-branch-exists
         run: |
-          if [[ -n $(git ls-remote --heads origin dev) ]]; then
+          if [[ -n $(git ls-remote --heads ${{ github.server_url }}/${{ github.repository }} dev) ]]; then
               echo "exists=yes" >> $GITHUB_OUTPUT
           else
               echo "exists=no" >> $GITHUB_OUTPUT
