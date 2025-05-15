@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.20](https://github.com/agrc/create-reminder-action/compare/v1.1.19...v1.1.20) (2025-05-15)
+
+
+### Bug Fixes
+
+* post rewrite clean-up ([debac17](https://github.com/agrc/create-reminder-action/commit/debac17f0d564ef6172ce8833065f1a3549014ea))
+
 ## [1.1.19](https://github.com/agrc/create-reminder-action/compare/v1.1.19...v1.1.19) (2025-05-15)
 
 
