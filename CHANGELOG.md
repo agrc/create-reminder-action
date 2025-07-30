@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.22](https://github.com/agrc/create-reminder-action/compare/v1.1.21...v1.1.22) (2025-07-30)
+
+
+### Dependencies
+
+* allow esbuild scripts ([6b6c707](https://github.com/agrc/create-reminder-action/commit/6b6c7078fc25b9dae48a37e819719db13e643c36))
+* **dev:** bump the safe-dependencies group across 1 directory with 9 updates ([3418302](https://github.com/agrc/create-reminder-action/commit/3418302e3e73b1f01243bd7ed9ac2bb8a2c07313))
+
 ## [1.1.21](https://github.com/agrc/create-reminder-action/compare/v1.1.20...v1.1.21) (2025-06-24)
 
 
