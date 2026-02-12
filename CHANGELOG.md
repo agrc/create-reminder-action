@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.24](https://github.com/agrc/create-reminder-action/compare/v1.1.23...v1.1.24) (2026-02-12)
+
+
+### Dependencies
+
+* **dev:** bump @types/node ([0c8e83b](https://github.com/agrc/create-reminder-action/commit/0c8e83b24c862e6dd30229bc4835ce513d110de5))
+* **dev:** bump eslint in the safe-dependencies group across 1 directory ([a0e4304](https://github.com/agrc/create-reminder-action/commit/a0e4304e4a42c4cb8ecdb327115b1b25d750b799))
+* fy26 q3 dependency updates ([526651e](https://github.com/agrc/create-reminder-action/commit/526651e3f79213c7e5f3d8ce83818203e23c995b))
+
 ## [1.1.23](https://github.com/agrc/create-reminder-action/compare/v1.1.22...v1.1.23) (2025-11-06)
 
 
