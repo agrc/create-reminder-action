@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.25](https://github.com/agrc/create-reminder-action/compare/v1.1.24...v1.1.25) (2026-05-18)
+
+
+### Dependencies
+
+* bump NPM dependencies 🌲 ([f92e4e3](https://github.com/agrc/create-reminder-action/commit/f92e4e3d7191f2dbf85729bb9b5851e4305c5907))
+
 ## [1.1.24](https://github.com/agrc/create-reminder-action/compare/v1.1.23...v1.1.24) (2026-02-12)
 
 
