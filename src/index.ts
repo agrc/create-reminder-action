@@ -59,7 +59,7 @@ async function run() {
   }
   const context = testContext || (ghContext.payload as IssueCommentCreatedOrEditedEvent);
   const octokit = getOctokit(getInput('repoToken', { required: true }));
-  let reminder: Reminder | null = null;
+  let reminder: Reminder | null;
 
   try {
     startGroup('parsing reminder');
