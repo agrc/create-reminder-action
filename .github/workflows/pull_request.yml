@@ -76,7 +76,7 @@ jobs:
         uses: actions/create-github-app-token@v3.2.0
         id: generate-token
         with:
-          app-id: ${{ secrets.UGRC_RELEASE_BOT_APP_ID }}
+          client-id: ${{ secrets.UGRC_RELEASE_BOT_APP_ID }}
           private-key: ${{ secrets.UGRC_RELEASE_BOT_APP_KEY }}
 
       - name: ⬇️ Set up code
