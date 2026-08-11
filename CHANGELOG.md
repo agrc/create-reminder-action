@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.26](https://github.com/agrc/create-reminder-action/compare/v1.1.25...v1.1.26) (2026-08-11)
+
+
+### Bug Fixes
+
+* replace deprecated app-id with client-id in create-github-app-token action ([72c8a15](https://github.com/agrc/create-reminder-action/commit/72c8a15804a382ce3c134a5e56bd20c0640f180c))
+
+
+### Dependencies
+
+* bump NPM dependencies 🌲 ([07ffbfe](https://github.com/agrc/create-reminder-action/commit/07ffbfe0eb5f7bdf5a7853cb4087b127ae849e8f))
+* **dev:** bump the safe-dependencies group across 1 directory with 4 updates ([602194b](https://github.com/agrc/create-reminder-action/commit/602194b2764e9eb2905dd6a021238d6e2548c36e))
+* TypeScript v5 -&gt; v6 ([e4c50b4](https://github.com/agrc/create-reminder-action/commit/e4c50b477d94ca8994497a220040247f34672227))
+
 ## [1.1.25](https://github.com/agrc/create-reminder-action/compare/v1.1.24...v1.1.25) (2026-05-19)
 
 
