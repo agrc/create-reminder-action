@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.27](https://github.com/agrc/create-reminder-action/compare/v1.1.26...v1.1.27) (2026-10-29)
+
+
+### Dependencies
+
+* bump js-yaml from 4.3.1 to 4.3.2 ([#302](https://github.com/agrc/create-reminder-action/issues/302)) ([b819157](https://github.com/agrc/create-reminder-action/commit/b819157a552c51522c25c642636075eabf318d1e))
+* bump source-map-js from 1.2.1 to 1.2.2 ([#308](https://github.com/agrc/create-reminder-action/issues/308)) ([c602d12](https://github.com/agrc/create-reminder-action/commit/c602d1271019048ae5801c759acc4e2a1b44853c))
+* bump undici from 6.28.0 to 6.29.1 ([#309](https://github.com/agrc/create-reminder-action/issues/309)) ([5012a92](https://github.com/agrc/create-reminder-action/commit/5012a92141ad387174754fc8433782670490f508))
+* bump vite from 8.0.11 to 8.3.5 ([#310](https://github.com/agrc/create-reminder-action/issues/310)) ([f1837b4](https://github.com/agrc/create-reminder-action/commit/f1837b42e36d2b2eb6de6ec77448b010c56e5feb))
+* **dev:** bump the safe-dependencies group across 1 directory with 3 updates ([#305](https://github.com/agrc/create-reminder-action/issues/305)) ([c0f5080](https://github.com/agrc/create-reminder-action/commit/c0f50807d4e7b97c0866564f1bb1265eacccffc2))
+
 ## [1.1.26](https://github.com/agrc/create-reminder-action/compare/v1.1.25...v1.1.26) (2026-08-11)
 
 
